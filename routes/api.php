@@ -2,4 +2,5 @@
 
 use App\Http\Controllers\UserController;
 
-Route::resource('users', UserController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+Route::apiResource('users', UserController::class);
+Route::post('login', [AuthController::class, 'login']);
