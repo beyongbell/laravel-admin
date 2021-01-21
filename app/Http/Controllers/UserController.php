@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::paginate();
     }
 
     public function store(UserCreateRequest $request)
@@ -25,7 +26,7 @@ class UserController extends Controller
         return response($user);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->all());
         return response($user, Response::HTTP_ACCEPTED);
