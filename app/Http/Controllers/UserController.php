@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserCreateRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -13,7 +14,7 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         $user = User::create($request->all());
         return response($user, Response::HTTP_CREATED);

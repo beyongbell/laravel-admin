@@ -3,9 +3,11 @@ GET http://127.0.0.1:8000/api/users
 ####################################
 
 POST http://127.0.0.1:8000/api/users
+Accept: application/json
+Content-Type: application/json
 
 {
-    "first_name": "Tinnakorn",
+    "first_name": "",
     "last_name": "Choompee",
     "email": "tinnakorn@gmail.com",
     "password": 123456
@@ -14,6 +16,8 @@ POST http://127.0.0.1:8000/api/users
 ####################################
 
 PUT http://127.0.0.1:8000/api/users/21
+Accept: application/json
+Content-Type: application/json
 
 {
     "first_name": "BellNajA",
