@@ -25,4 +25,21 @@ class AuthController extends Controller
         $user = User::create($request->all());
         return response($user, Response::HTTP_CREATED);
     }
+
+    public function profile()
+    {
+        return Auth::user();
+    }
+
+    public function update(Request $request)
+    {
+        Auth::user()->update($request->all());
+        return response(Auth::user(), Response::HTTP_ACCEPTED);
+    }
+
+    public function password()
+    {
+        Auth::user()->update([$request->password]);
+        return response(Auth::user(), Response::HTTP_ACCEPTED);
+    }
 }
