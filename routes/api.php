@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 Route::post('login', [AuthController::class, 'login']);
