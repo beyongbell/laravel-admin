@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\AuthRegisterRequest;
 use App\Http\Requests\AuthUpdateRequest;
 use App\Http\Requests\AuthPasswordRequest;
+use App\Http\Requests\AuthRegisterRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -25,7 +26,7 @@ class AuthController extends Controller
     public function register(AuthRegisterRequest $request)
     {
         $user = User::create($request->all());
-        return response($user, Response::HTTP_CREATED);
+        return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
     public function profile()
@@ -36,7 +37,7 @@ class AuthController extends Controller
     public function update(AuthUpdateRequest $request)
     {
         Auth::user()->update($request->all());
-        return response(Auth::user(), Response::HTTP_ACCEPTED);
+        return response(new UserResource(Auth::user()), Response::HTTP_ACCEPTED);
     }
 
     public function password(AuthPasswordRequest $request)

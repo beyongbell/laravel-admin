@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return User::paginate();
+        return UserResource::collection(User::paginate());
     }
 
     public function store(UserCreateRequest $request)
@@ -23,7 +24,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return response($user);
+        return new UserResource($user);
     }
 
     public function update(UserUpdateRequest $request, User $user)

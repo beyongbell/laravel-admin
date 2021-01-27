@@ -22,6 +22,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        "role_id"
     ];
 
     /**
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }
