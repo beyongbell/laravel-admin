@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,12 +16,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $product = Product::create([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'image'       => env('APP_URL').'/'.$request->file('image')->store('images'),
-            'price'       => $request->price
-        ]);
+        $product = Product::create(Arr::collapse([$request->all(), ['image' => env('APP_URL').'/'.$request->file('image')->store('images')]]));
         return response($product, Response::HTTP_CREATED);
     }
 
@@ -31,7 +27,8 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update(Arr::collapse([$request->all(), ['image' => env('APP_URL').'/'.$request->file('image')->store('images')]]));
+        return response($product, Response::HTTP_CREATED);
     }
 
     public function destroy(Product $product)
