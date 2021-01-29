@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
@@ -14,7 +16,7 @@ class ProductController extends Controller
         return ProductResource::collection(Product::paginate());
     }
 
-    public function store(Request $request)
+    public function store(ProductCreateRequest $request)
     {
         $product = Product::create(Arr::collapse([$request->all(), ['image' => env('APP_URL').'/'.$request->file('image')->store('images')]]));
         return response($product, Response::HTTP_CREATED);
@@ -25,7 +27,7 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
         $product->update(Arr::collapse([$request->all(), ['image' => env('APP_URL').'/'.$request->file('image')->store('images')]]));
         return response($product, Response::HTTP_CREATED);
