@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    public function orderItem()
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
     }

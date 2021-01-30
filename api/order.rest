@@ -1,0 +1,12 @@
+@name = orders
+@id = 1
+
+GET {{host}}/{{name}}
+Authorization: {{token}}
+
+####################################
+
+GET {{host}}/{{name}}/{{id}}
+Authorization: {{token}}
+
+####################################
