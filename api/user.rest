@@ -23,6 +23,11 @@ POST {{host}}/login
 
 ####################################
 
+GET {{host}}/auth/profile
+Authorization: {{token}}
+
+####################################
+
 GET {{host}}/{{name}}
 Authorization: {{token}}
 

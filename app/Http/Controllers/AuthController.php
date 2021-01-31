@@ -31,7 +31,7 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return Auth::user();
+        return (new UserResource(Auth::user()))->additional(['data' => ['permissions' => Auth::user()->permissions()]]);
     }
 
     public function update(AuthUpdateRequest $request)
