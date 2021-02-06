@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
 {
     public function index()
     {
+        Gate::authorize('view', 'orders');
         return OrderResource::collection(Order::paginate());
     }
 
@@ -20,6 +22,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        Gate::authorize('view', 'orders');
         return new OrderResource($order);
     }
 
