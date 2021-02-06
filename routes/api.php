@@ -12,6 +12,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 Route::middleware(['auth:api'])->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
     Route::get('chart', [DashboardController::class, 'chart']);
     Route::get('auth/profile',  [AuthController::class, 'profile']);
     Route::post('auth/update',   [AuthController::class, 'update']);

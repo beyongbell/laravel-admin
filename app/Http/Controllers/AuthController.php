@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AuthUpdateRequest;
 use App\Http\Requests\AuthPasswordRequest;
 use App\Http\Requests\AuthRegisterRequest;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -16,11 +17,18 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt($request->only('email', 'password'))) {
-            $user  = Auth::user();
-            $token = $user->createToken('admin')->accessToken;
-            return ['token' => $token];
+            $user   = Auth::user();
+            $token  = $user->createToken('admin')->accessToken;
+            $cookie = cookie('jwt', $token);
+            return response(['token' => $token])->withCookie($cookie);
         }
         return response(['error' => 'Invalid Credentials', Response::HTTP_UNAUTHORIZED]);
+    }
+
+    public function logout()
+    {
+        $cookie = Cookie::forget('jwt');
+        return response(['message' => 'success'])->withCookie($cookie);
     }
 
     public function register(AuthRegisterRequest $request)
